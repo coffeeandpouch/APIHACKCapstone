@@ -14,12 +14,15 @@ function displayResults(responseJson) {
     //if there are previous results, remove them
     console.log(responseJson);
     $("#results-list").empty();
-    //iterate through the items array
+    //iterate through the events array
     for (let i = 0; i < responseJson.events.length; i++) {
-      //for each park in the items array, add a list item to the results list
-      //with  the park full name, description, and url
+      //for each game in the events array, add a list item to the results list
+      //with  the opponent, date of the event, and start time
       $("#results-list").append(
-        `<li><p>${responseJson.events[i].strEvent}</p></li>`
+        `<li><h3>${responseJson.events[i].strEvent}</h3>
+        <p>Date:${responseJson.events[i].dateEvent}</p>
+        <p>Start Time:${responseJson.events[i].strTime}</p>
+        </li>`
       );
     }
     //display the results section

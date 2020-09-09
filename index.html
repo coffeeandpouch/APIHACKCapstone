@@ -1,33 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NextUpSports</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-<h1>NextUpSports</h1>
-<p>The one stop shop to check out who your team is playing next</p>
-<form class="js-form">
-    <label for="js-search-sport">Sport:</label>
-    <input type="text" name="search-sport" class="js-sport"/>
+      <h1>NextUpSports</h1>
+      <p>The one stop shop to check out who your team is playing next</p>
+      <form class="js-form">
+          <label for="leagues">Choose a league:</label>
+          <select id="allLeagues">
+              <option id="leaguesList" value="leagueName">""</option>
 
-    <label for="js-search-league">League:</label>
-    <input type="option" name="choose-league" class="js-choice"/>
+          </select>
+        <!-- <label for="js-search-sport"></label>
+        <input
+          type="text"
+          name="search-sport"
+          class="js-sport"
+          placeholder="Enter team's sport"
+        />
 
-    <label for="js-search-team">Team:</label>
-    <input type="text" name="choose-team" class="js-team"/>
+        <!-- <label for="js-search-league">League:</label>
+        <input
+          type="option"
+          name="choose-league"
+          class="js-choice"
+          placeholder="Enter team's league"
+        /> --> 
 
-    <input type="submit" value="Go!" />
-</form>
-<section id="results" class="hidden">
-    <h2>Search results</h2>
-    <p id="js-error-message" class="error-message"></p>
-    <ul id="results-list"></ul>
-  </section>
-</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="index.js"></script>
-</body>
+        <!-- <label for="js-search-team">Team:</label>
+        <input
+          type="text"
+          name="choose-team"
+          class="js-team"
+          placeholder="Enter your team ID"
+        /> -->
+
+        <input type="submit" value="Go!" />
+      </form>
+      <section id="results" class="hidden">
+        <h2>Search results</h2>
+        <p id="js-error-message" class="error-message"></p>
+        <ul id="results-list"></ul>
+      </section>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+  </body>
 </html>

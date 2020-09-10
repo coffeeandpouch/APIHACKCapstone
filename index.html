@@ -10,10 +10,16 @@
       <h1>NextUpSports</h1>
       <p>The one stop shop to check out who your team is playing next</p>
       <form class="js-form">
-        <label for="leagues">Choose a league:</label>
-        <select id="allLeagues">
-          <option id="leaguesList" value="leagueName">""</option>
+        <label for="leagues">League:</label>
+        <select id="allLeagues" placeholder="Choose a league">
+          <option id="leaguesList" value="leagueName">Choose your league</option>
         </select>
+        <br>
+        <label for="teams">Team:</label>
+        <select id="allTeams" placeholder="Choose a team">
+            <option id="teamsList" value="teamName">Choose your team</option>
+        </select>
+
         <!-- <label for="js-search-sport"></label>
         <input
           type="text"
@@ -50,3 +56,4 @@
     <script src="index.js"></script>
   </body>
 </html>
+

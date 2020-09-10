@@ -7,41 +7,68 @@ const allTeamsUrl =
   "https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php";
 const searchUrl = "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php";
 
-function displayLeaguesInput(responseJson){
-    // if there are previous results, remove them
-    console.log(responseJson);
-    $("#allLeagues").empty();
-    // iterate through the leagues array
-    for (let i = 0;i < responseJson.leagues.length; i++) {
-        // for each league in the leagues array,add a list item to options list with the league name
+function displayLeaguesInput(responseJson) {
+  // if there are previous results, remove them
+  console.log(responseJson);
+  // $("#allLeagues").empty();
+  // iterate through the leagues array
+  for (let i = 0; i < responseJson.leagues.length; i++) {
+    // for each league in the leagues array,add a list item to options list with the league name
     $("#allLeagues").append(
-        `<li>${responseJson.leagues.strLeague}</li>`
+      `<option>${responseJson.leagues[i].strLeague}</option>`
     );
-    }
-    //display the league results
-    $("#allLeagues").show();
+  }
+  //display the league results
+  $("#allLeagues").show();
 }
 
-
 function getLeagues() {
-    fetch(leagueUrl)
-    .then(response => {
-        if(response.ok) {
-            return response.json();
-        }
-        throw new Error(response.statusText);
+  fetch(leagueUrl)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
     })
-    .then(responseJson => displayLeaguesInput(responseJson))
-    .catch(err => {
-        $('#js-error-message').text(`Something went wrong:${err.message}`)
-
-    })
+    .then((responseJson) => displayLeaguesInput(responseJson))
+    .catch((err) => {
+      $("#js-error-message").text(`Something went wrong:${err.message}`);
+    });
 }
 // add a select tag in your index.html with some id attribute
 // add a displayLeaguesInput function
 // iterate over all the leagues
 // append option tag to the select tag that you added earlier (hint: use jquery to do this)
 
+function displayTeamsInput(responseJson) {
+  //if there are previous results, remove them
+  console.log(responseJson);
+//   $("#allTeams").empty();
+  //iterate through the teams array
+  for (let i = 0; i < responseJson.teams.length; i++) {
+    // for each teams in the teams array, add a option item to options list with team name
+    $("#allTeams").append(
+      `<option>${responseJson.teams[i].strTeam}</option>
+        <option>${responseJson.teams[i].idTeam}</option>`
+    );
+  }
+  //display team results
+  $("#allTeams").show();
+}
+
+function getTeams() {
+  fetch(allTeamsUrl)
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .then((responseJson) => displayTeamsInput(responseJson))
+    .catch((err) => {
+      $("#js-error-message").text(`Something went wrong:${err.message}`);
+    });
+}
 function formatQueryParams(params) {
   const queryItems = Object.keys(params).map(
     (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
@@ -100,5 +127,5 @@ $(function () {
   console.log("App loaded! Waiting for submit!");
   watchForm();
   getLeagues();
+  getTeams();
 });
-

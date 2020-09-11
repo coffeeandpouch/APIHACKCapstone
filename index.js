@@ -3,8 +3,7 @@
 // const api_key = "";
 // const sportUrl = "https://www.thesportsdb.com/api/v1/json/1/all_sports.php";
 const leagueUrl = "https://www.thesportsdb.com/api/v1/json/1/all_leagues.php";
-const allTeamsUrl =
-  "https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php";
+const allTeamsUrl ="https://www.thesportsdb.com/api/v1/json/1/search_all_teams.phps"
 const searchUrl = "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php";
 
 function displayLeaguesInput(responseJson) {
@@ -116,17 +115,17 @@ function getGames(query) {
     });
 }
 function watchLeagueChange() {
-  $("#allLeagues").on("change",function() {
-const selectedLeague=$(this).val();
+  $("#selectedLeague").on("change",function() {
+const selectedLeague = $(this).val();
 console.log(selectedLeague);
   })
 }
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
-    const leagueTerm = $("#leaguesList").val();
+    const selectedLeague = $("#leaguesList").val();
     const searchTerm = $(".js-team").val();
-    getTeams(leagueTerm);
+    getTeams(selectedLeague);
     getGames(searchTerm);
   });
 }

@@ -3,7 +3,7 @@
 // const api_key = "";
 // const sportUrl = "https://www.thesportsdb.com/api/v1/json/1/all_sports.php";
 const leagueUrl = "https://www.thesportsdb.com/api/v1/json/1/all_leagues.php";
-const allTeamsUrl ="https://www.thesportsdb.com/api/v1/json/1/search_all_teams.phps"
+const allTeamsUrl ="https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php"
 const searchUrl = "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php";
 
 function displayLeaguesInput(responseJson) {

@@ -15,7 +15,8 @@ function displayLeaguesInput(responseJson) {
   for (let i = 0; i < responseJson.leagues.length; i++) {
     // for each league in the leagues array,add a list item to options list with the league name
     $("#allLeagues").append(
-      `<option>${responseJson.leagues[i].strLeague}</option>`
+      `<option>${responseJson.leagues[i].strLeague}</option>
+      <option>${responseJson.leagues[i].idLeague}</option>`
     );
   }
   //display the league results
@@ -43,7 +44,7 @@ function getLeagues() {
 function displayTeamsInput(responseJson) {
   //if there are previous results, remove them
   console.log(responseJson);
-//   $("#allTeams").empty();
+  //   $("#allTeams").empty();
   //iterate through the teams array
   for (let i = 0; i < responseJson.teams.length; i++) {
     // for each teams in the teams array, add a option item to options list with team name
@@ -114,11 +115,18 @@ function getGames(query) {
       $("#js-error-message").text(`Something went wrong:${err.message}`);
     });
 }
-
+function watchLeagueChange() {
+  $("#allLeagues").on("change",function() {
+const selectedLeague=$(this).val();
+console.log(selectedLeague);
+  })
+}
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
+    const leagueTerm = $("#leaguesList").val();
     const searchTerm = $(".js-team").val();
+    getTeams(leagueTerm);
     getGames(searchTerm);
   });
 }
@@ -126,6 +134,6 @@ function watchForm() {
 $(function () {
   console.log("App loaded! Waiting for submit!");
   watchForm();
+  watchLeagueChange();
   getLeagues();
-  getTeams();
 });

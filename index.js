@@ -124,6 +124,7 @@ function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
     const selectedLeague = $("#leaguesList").val();
+    console.log(selectedLeague);
     const searchTerm = $(".js-team").val();
     getTeams(selectedLeague);
     getGames(searchTerm);

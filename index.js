@@ -3,7 +3,8 @@
 // const api_key = "";
 // const sportUrl = "https://www.thesportsdb.com/api/v1/json/1/all_sports.php";
 const leagueUrl = "https://www.thesportsdb.com/api/v1/json/1/all_leagues.php";
-const allTeamsUrl ="https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php"
+const allTeamsUrl =
+  "https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php";
 const searchUrl = "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php";
 
 function displayLeaguesInput(responseJson) {
@@ -14,8 +15,7 @@ function displayLeaguesInput(responseJson) {
   for (let i = 0; i < responseJson.leagues.length; i++) {
     // for each league in the leagues array,add a list item to options list with the league name
     $("#allLeagues").append(
-      `<option>${responseJson.leagues[i].strLeague}</option>
-      <option>${responseJson.leagues[i].idLeague}</option>`
+      `<option value="${responseJson.leagues[i].idLeague}">${responseJson.leagues[i].strLeague}</option>`
     );
   }
   //display the league results
@@ -56,8 +56,8 @@ function displayTeamsInput(responseJson) {
   $("#allTeams").show();
 }
 
-function getTeams() {
-  fetch(allTeamsUrl)
+function getTeams(leagueId) {
+  fetch(`${allTeamsUrl}?${formatQueryParams({ id: leagueId })}`)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -115,10 +115,11 @@ function getGames(query) {
     });
 }
 function watchLeagueChange() {
-  $("#selectedLeague").on("change",function() {
-const selectedLeague = $(this).val();
-console.log(selectedLeague);
-  })
+  $("#allLeagues").on("change", function () {
+    const selectedLeague = $(this).val();
+    console.log(selectedLeague);
+    getTeams(selectedLeague);
+  });
 }
 function watchForm() {
   $("form").submit((event) => {
@@ -126,7 +127,7 @@ function watchForm() {
     const selectedLeague = $("#leaguesList").val();
     console.log(selectedLeague);
     const searchTerm = $(".js-team").val();
-    getTeams(selectedLeague);
+    getTeams("#allLeagues");
     getGames(searchTerm);
   });
 }

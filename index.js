@@ -52,7 +52,22 @@ function displayTeamsInput(responseJson) {
     );
   }
   //display team results
-  $("#allTeams").show();
+  $("#selectedTeam").show();
+}
+
+function displayTeamResults(responseJson) {
+  //if there are previous results, remove them
+  console.log(responseJson);
+  $("#teamId").empty();
+  //iterate through the teams array
+  for (let i = o; i < response.json.teams.length; i++) {
+    //for the chosen team in the teams array, add an option item team id list with id number
+    $("#teamId").append(
+      `<option value="${responseJson.teams[i].strTeam}">${responseJson.teams[i].idTeam}</option>`
+    );
+  }
+  //display team id results
+  $("#teamId").show();
 }
 
 function getTeams(leagueId) {
@@ -120,6 +135,14 @@ function watchLeagueChange() {
     getTeams(selectedLeague);
   });
 }
+
+function watchTeamChange() {
+  $("#teamId").on("change", function () {
+    const teamId = $(this).val();
+    console.log(idTeam);
+    getId(idTeam);
+  });
+}
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
@@ -128,6 +151,7 @@ function watchForm() {
     const searchTerm = $(".js-team").val();
     getTeams("#allLeagues");
     getGames(searchTerm);
+    watchTeamChange();
   });
 }
 

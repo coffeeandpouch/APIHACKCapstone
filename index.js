@@ -43,13 +43,12 @@ function getLeagues() {
 function displayTeamsInput(responseJson) {
   //if there are previous results, remove them
   console.log(responseJson);
-  //   $("#allTeams").empty();
+  $("#selectedLeague").empty();
   //iterate through the teams array
   for (let i = 0; i < responseJson.teams.length; i++) {
     // for each teams in the teams array, add a option item to options list with team name
-    $("#allTeams").append(
-      `<option>${responseJson.teams[i].strTeam}</option>
-        <option>${responseJson.teams[i].idTeam}</option>`
+    $("#selectedLeague").append(
+      `<option value="${responseJson.teams[i].idTeam}">${responseJson.teams[i].strTeam}</option>`
     );
   }
   //display team results

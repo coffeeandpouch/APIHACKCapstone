@@ -1,1 +1,32 @@
+body {
+  background-color: rgb(0, 130, 230);
+  color: rgb(236, 154, 76);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: ; */
+}
+
+@media only screen and (min-width: 300px) and (max-width: 575px) {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 793px) {
+  form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+@media only screen and (min-width: 794px) {
+  form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+}
 

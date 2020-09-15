@@ -70,6 +70,8 @@ function displayTeamResults(responseJson) {
   $("#teamId").show();
 }
 
+$();
+
 function getTeams(leagueId) {
   fetch(`${allTeamsUrl}?${formatQueryParams({ id: leagueId })}`)
     .then((response) => {
@@ -137,21 +139,23 @@ function watchLeagueChange() {
 }
 
 function watchTeamChange() {
-  $("#teamId").on("change", function () {
-    const teamId = $(this).val();
+  $("#selectedLeague, #allLeagues").on("change", function () {
+    const idTeam = $(this).val();
     console.log(idTeam);
-    getId(idTeam);
+    $("#teamId").val(idTeam);
   });
 }
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
-    const selectedLeague = $("#leaguesList").val();
-    console.log(selectedLeague);
-    const searchTerm = $(".js-team").val();
-    getTeams("#allLeagues");
-    getGames(searchTerm);
-    watchTeamChange();
+    // const selectedLeague = $("#leaguesList").val();
+    // console.log(selectedLeague);
+    // const searchTerm = $(".js-team").val();
+    // getTeams(selectedLeague);
+    const teamId = $("#selectedLeague").val();
+    console.log(teamId);
+    getGames(teamId);
+    // watchTeamChange();
   });
 }
 
@@ -159,5 +163,6 @@ $(function () {
   console.log("App loaded! Waiting for submit!");
   watchForm();
   watchLeagueChange();
+  watchTeamChange();
   getLeagues();
 });

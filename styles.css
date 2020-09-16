@@ -1,8 +1,12 @@
 body {
   background-color: rgb(0, 130, 230);
   color: rgb(236, 154, 76);
+  font-family: "Staubach", Times, serif;
 }
 
+p {
+  font-size: 16px;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -29,4 +33,3 @@ form {
     justify-content: space-evenly;
   }
 }
-

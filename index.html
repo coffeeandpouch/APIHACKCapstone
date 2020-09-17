@@ -3,14 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <title>NextUpSports</title>
   </head>
   <body>
     <div class="container">
       <h1>NextUpSports</h1>
-      <p><strong>The one stop shop to check out who your team is playing next</strong></p>
-      <hr>
+      <p>
+        <strong
+          >The one stop shop to check out who your team is playing next</strong
+        >
+      </p>
+      <hr />
       <form class="js-form">
         <label for="allLeagues">League:</label>
         <select id="allLeagues">
@@ -22,10 +26,14 @@
           <option disabled selected value="">Choose your team</option>
         </select>
 
-       
-
-        <label for="teamId">Team ID:</label>
-        <input id="teamId" type="text" disabled placeholder="Select a team">
+        <label for="teamId" hidden>Team ID:</label>
+        <input
+          id="teamId"
+          type="text"
+          disabled
+          placeholder="Select a team"
+          hidden
+        />
 
         <input type="submit" value="Go!" />
       </form>
@@ -39,3 +47,4 @@
     <script src="index.js"></script>
   </body>
 </html>
+   

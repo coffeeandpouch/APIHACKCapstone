@@ -1,7 +1,6 @@
-# APIHACKCapstone
+# NextUpSports
 
 NextUpSports
 
-https://coffeeandpouch.github.io/APIHACKCapstone/
-
+https://coffeeandpouch.github.io/NextUpSports/
 

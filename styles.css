@@ -2,7 +2,7 @@ body {
   background-color: rgb(87, 139, 190);
   color: rgb(0, 0, 0);
   font-family: "Staubach", Times, serif;
-  -webkit-text-stroke: 0.5px darkgrey;
+  /* -webkit-text-stroke: 0.5px whitesmoke; */
 }
 
 p {
@@ -13,6 +13,15 @@ form {
   flex-direction: column;
 }
 
+#results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card {
+  border: 3px solid black;
+  border-radius: 10%;
+}
 @media only screen and (min-width: 300px) and (max-width: 575px) {
   form {
     display: flex;
@@ -42,5 +51,10 @@ form {
   }
   p {
     font-size: 20px;
+  }
+
+  #results {
+    display: flex;
+    flex-direction: row;
   }
 }

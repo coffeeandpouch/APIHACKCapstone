@@ -2,7 +2,7 @@ body {
   background-color: rgb(87, 139, 190);
   color: rgb(0, 0, 0);
   font-family: "Staubach", Times, serif;
-  /* -webkit-text-stroke: 0.5px whitesmoke; */
+  -webkit-text-stroke: 0.5px whitesmoke;
 }
 
 p {

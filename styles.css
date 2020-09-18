@@ -8,13 +8,26 @@ body {
 p {
   font-size: 16px;
 }
+
+h2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
   margin: 20px;
 }
 
-#results {
+ul {
+  display: column;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cards {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,6 +35,13 @@ form {
 .card {
   border: 3px solid black;
   border-radius: 10%;
+  box-shadow: 0 10px 15px 0 rgba(255, 254, 254, 0.2);
+  margin-bottom: 10px;
+}
+
+.card-body {
+  padding: 5px;
+  background-color: rgb(255, 127, 0);
 }
 @media only screen and (min-width: 300px) and (max-width: 575px) {
   form {
@@ -36,7 +56,7 @@ form {
 @media only screen and (min-width: 576px) and (max-width: 793px) {
   form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
   }
 
@@ -47,15 +67,26 @@ form {
 @media only screen and (min-width: 794px) {
   form {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
   }
   p {
     font-size: 20px;
   }
 
-  #results {
+  h2 {
     display: flex;
     flex-direction: row;
+    justify-content: center;
+  }
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    margin-right: 20px;
   }
 }

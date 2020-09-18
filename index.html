@@ -3,12 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-      crossorigin="anonymous"
-    />
+
     <link rel="stylesheet" href="styles.css" />
     <title>NextUpSports</title>
   </head>
@@ -33,6 +28,7 @@
         </select>
 
         <label for="teamId" hidden>Team ID:</label>
+
         <input
           id="teamId"
           type="text"
@@ -42,9 +38,12 @@
         />
 
         <input type="submit" value="Go!" />
+        <br />
       </form>
-      <section id="results" class="hidden">
-        <h2>Search results</h2>
+      <h2>Search results</h2>
+
+      <section id="results" class="cards">
+        <!-- <h2>Search results</h2> -->
         <p id="js-error-message" class="error-message"></p>
         <ul id="results-list"></ul>
       </section>

@@ -86,21 +86,32 @@ function formatQueryParams(params) {
   return queryItems.join("&");
 }
 
-function tconvert(time) {
-  //check the correct time format and split into components
-  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [
-    time,
-  ];
+// function tconvert(time) {
+//   //check the correct time format and split into components
+//   time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [
+//     time,
+//   ];
 
-  if (time.length > 1) {
-    //if time format correct
-    time = time.slice(1); // Remove full string match value
-    time(5) = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
-    time[0] = +time[0] % 12 || 12; //Adjust hours
-  }
-  return Time.join(""); // return adjusted time or original string
-}
-tconvert(time);
+//   if (time.length > 1) {
+//     //if time format correct
+//     time = time.slice(1); // Remove full string match value
+//     time(5) = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
+//     time[0] = +time[0] % 12 || 12; //Adjust hours
+//   }
+//   return time.join(""); // return adjusted time or original string
+// }
+// tconvert(time);
+
+// function toconvert(time) {
+//   var hours = time.getHours();
+//   var minutes = time.getMinutes();
+//   var ampm = hours >= 12 ? "pm" : "am";
+//   hours = hours % 12;
+//   hours = hours ? hours : 12;
+//   // the hour '0' should be '12'
+//   minutes = minutes < 10 ? "0" + minutes : minutes;
+//   var strTime = hours + ":" + minutes + " " + ampm;
+//   return strTime;
 
 function displayEventResults(responseJson) {
   //if there are previous results, remove them
@@ -163,7 +174,7 @@ function watchForm() {
     event.preventDefault();
     const teamId = $("#selectedLeague").val();
     console.log(teamId);
-    tconvert(time);
+    // tconvert(time);
     getGames(teamId);
   });
 }

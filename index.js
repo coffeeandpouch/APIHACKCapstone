@@ -1,7 +1,5 @@
 "use strict";
 
-// const api_key = "";
-// const sportUrl = "https://www.thesportsdb.com/api/v1/json/1/all_sports.php";
 const leagueUrl = "https://www.thesportsdb.com/api/v1/json/1/all_leagues.php";
 const allTeamsUrl =
   "https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php";
@@ -10,7 +8,6 @@ const searchUrl = "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php";
 function displayLeaguesInput(responseJson) {
   // if there are previous results, remove them
   console.log(responseJson);
-  // $("#allLeagues").empty();
   // iterate through the leagues array
   for (let i = 0; i < responseJson.leagues.length; i++) {
     // for each league in the leagues array,add a list item to options list with the league name
@@ -21,7 +18,7 @@ function displayLeaguesInput(responseJson) {
   //display the league results
   $("#allLeagues").show();
 }
-
+//fetch all leagues and display at page load
 function getLeagues() {
   fetch(leagueUrl)
     .then((response) => {
@@ -35,10 +32,6 @@ function getLeagues() {
       $("#js-error-message").text(`Something went wrong:${err.message}`);
     });
 }
-// add a select tag in your index.html with some id attribute
-// add a displayLeaguesInput function
-// iterate over all the leagues
-// append option tag to the select tag that you added earlier (hint: use jquery to do this)
 
 function displayTeamsInput(responseJson) {
   //if there are previous results, remove them
@@ -71,7 +64,7 @@ function displayTeamResults(responseJson) {
 }
 
 $();
-
+//fetch the teams that are members of selected league
 function getTeams(leagueId) {
   fetch(`${allTeamsUrl}?${formatQueryParams({ id: leagueId })}`)
     .then((response) => {
@@ -85,12 +78,29 @@ function getTeams(leagueId) {
       $("#js-error-message").text(`Something went wrong:${err.message}`);
     });
 }
+
 function formatQueryParams(params) {
   const queryItems = Object.keys(params).map(
     (key) => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`
   );
   return queryItems.join("&");
 }
+
+function tconvert(time) {
+  //check the correct time format and split into components
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [
+    time,
+  ];
+
+  if (time.length > 1) {
+    //if time format correct
+    time = time.slice(1); // Remove full string match value
+    time(5) = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
+    time[0] = +time[0] % 12 || 12; //Adjust hours
+  }
+  return Time.join(""); // return adjusted time or original string
+}
+tconvert(time);
 
 function displayEventResults(responseJson) {
   //if there are previous results, remove them
@@ -101,16 +111,18 @@ function displayEventResults(responseJson) {
     //for each game in the events array, add a list item to the results list
     //with  the opponent, date of the event, and start time
     $("#results-list").append(
-      `<li><h3>${responseJson.events[i].strEvent}</h3>
-        <p>Date:${responseJson.events[i].dateEvent}</p>
-        <p>Start Time:${responseJson.events[i].strTime}</p>
-        </li>`
+      `<div class="card">
+      <div class="card-body"><h3>${responseJson.events[i].strEvent}</h3>
+        <p>Date: ${responseJson.events[i].dateEvent}</p>
+        <p>Start Time: ${responseJson.events[i].strTime}</p>
+        </div>
+        </div>`
     );
   }
   //display the results section
   $("#results").removeClass("hidden");
 }
-
+//fetch the next 5 scheduled games on selected team schedule
 function getGames(query) {
   const params = {
     id: query,
@@ -130,6 +142,7 @@ function getGames(query) {
       $("#js-error-message").text(`Something went wrong:${err.message}`);
     });
 }
+//
 function watchLeagueChange() {
   $("#allLeagues").on("change", function () {
     const selectedLeague = $(this).val();
@@ -148,14 +161,10 @@ function watchTeamChange() {
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
-    // const selectedLeague = $("#leaguesList").val();
-    // console.log(selectedLeague);
-    // const searchTerm = $(".js-team").val();
-    // getTeams(selectedLeague);
     const teamId = $("#selectedLeague").val();
     console.log(teamId);
+    tconvert(time);
     getGames(teamId);
-    // watchTeamChange();
   });
 }
 

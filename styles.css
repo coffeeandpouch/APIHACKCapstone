@@ -2,7 +2,12 @@ body {
   background-color: rgb(87, 139, 190);
   color: rgb(0, 0, 0);
   font-family: "Staubach", Times, serif;
-  -webkit-text-stroke: 0.5px whitesmoke;
+}
+
+h1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 p {
@@ -25,6 +30,7 @@ ul {
   display: column;
   flex-direction: column;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .cards {
@@ -35,12 +41,11 @@ ul {
 .card {
   border: 3px solid black;
   border-radius: 10%;
-  box-shadow: 0 10px 15px 0 rgba(255, 254, 254, 0.2);
-  margin-bottom: 10px;
+  box-shadow: 0 10px 15px 0 rgba(248, 242, 242, 0.2);
 }
 
 .card-body {
-  padding: 5px;
+  padding: 2px;
   background-color: rgb(255, 127, 0);
 }
 @media only screen and (min-width: 300px) and (max-width: 575px) {
@@ -56,22 +61,35 @@ ul {
 @media only screen and (min-width: 576px) and (max-width: 793px) {
   form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
   }
 
   p {
     font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
   }
 }
 @media only screen and (min-width: 794px) {
   form {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
   }
   p {
     font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 
   h2 {
@@ -82,7 +100,7 @@ ul {
   ul {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
   }
 

@@ -86,49 +86,42 @@ function formatQueryParams(params) {
   return queryItems.join("&");
 }
 
-// function tconvert(time) {
-//   //check the correct time format and split into components
-//   time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [
-//     time,
-//   ];
+function tconvert(time) {
+  //check the correct time format and split into components
+  time = time.toString().match(/^([01]\d|2[0-3])(:)([0-5]\d)(:[0-5]\d)?$/) || [
+    time,
+  ];
 
-//   if (time.length > 1) {
-//     //if time format correct
-//     time = time.slice(1); // Remove full string match value
-//     time(5) = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
-//     time[0] = +time[0] % 12 || 12; //Adjust hours
-//   }
-//   return time.join(""); // return adjusted time or original string
-// }
-// tconvert(time);
-
-// function toconvert(time) {
-//   var hours = time.getHours();
-//   var minutes = time.getMinutes();
-//   var ampm = hours >= 12 ? "pm" : "am";
-//   hours = hours % 12;
-//   hours = hours ? hours : 12;
-//   // the hour '0' should be '12'
-//   minutes = minutes < 10 ? "0" + minutes : minutes;
-//   var strTime = hours + ":" + minutes + " " + ampm;
-//   return strTime;
+  if (time.length > 1) {
+    //if time format correct
+    time = time.slice(1); // Remove full string match value
+    time[5] = +time[0] < 12 ? "AM" : "PM"; // Set AM/PM
+    time[0] = +time[0] % 12 || 12; //Adjust hours
+  }
+  return time.join(""); // return adjusted time or original string
+}
 
 function displayEventResults(responseJson) {
   //if there are previous results, remove them
   console.log(responseJson);
   $("#results-list").empty();
-  //iterate through the events array
-  for (let i = 0; i < responseJson.events.length; i++) {
-    //for each game in the events array, add a list item to the results list
-    //with  the opponent, date of the event, and start time
-    $("#results-list").append(
-      `<div class="card">
+
+  if (responseJson.events == null) {
+    $("#results-list").html(`<p>There are no games scheduled</p>`);
+  } else {
+    //iterate through the events array
+    for (let i = 0; i < responseJson.events.length; i++) {
+      //for each game in the events array, add a list item to the results list
+      //with  the opponent, date of the event, and start time
+      $("#results-list").append(
+        `<div class="card">
       <div class="card-body"><h3>${responseJson.events[i].strEvent}</h3>
         <p>Date: ${responseJson.events[i].dateEvent}</p>
-        <p>Start Time: ${responseJson.events[i].strTime}</p>
+        <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
         </div>
         </div>`
-    );
+      );
+    }
   }
   //display the results section
   $("#results").removeClass("hidden");
@@ -140,7 +133,7 @@ function getGames(query) {
   };
   const queryString = formatQueryParams(params);
   const url = searchUrl + "?" + queryString;
-
+  //fetches api from events url
   fetch(url)
     .then((response) => {
       if (response.ok) {
@@ -153,7 +146,7 @@ function getGames(query) {
       $("#js-error-message").text(`Something went wrong:${err.message}`);
     });
 }
-//
+//watch for league change  in league dropdown menu
 function watchLeagueChange() {
   $("#allLeagues").on("change", function () {
     const selectedLeague = $(this).val();
@@ -161,7 +154,7 @@ function watchLeagueChange() {
     getTeams(selectedLeague);
   });
 }
-
+//watch for team change in team dropdown menu
 function watchTeamChange() {
   $("#selectedLeague, #allLeagues").on("change", function () {
     const idTeam = $(this).val();
@@ -169,6 +162,7 @@ function watchTeamChange() {
     $("#teamId").val(idTeam);
   });
 }
+
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
@@ -186,3 +180,4 @@ $(function () {
   watchTeamChange();
   getLeagues();
 });
+

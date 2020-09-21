@@ -6,8 +6,6 @@ const allTeamsUrl =
 const searchUrl = "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php";
 
 function displayLeaguesInput(responseJson) {
-  // if there are previous results, remove them
-  console.log(responseJson);
   // iterate through the leagues array
   for (let i = 0; i < responseJson.leagues.length; i++) {
     // for each league in the leagues array,add a list item to options list with the league name
@@ -35,7 +33,6 @@ function getLeagues() {
 
 function displayTeamsInput(responseJson) {
   //if there are previous results, remove them
-  console.log(responseJson);
   $("#selectedLeague").empty();
   //iterate through the teams array
   for (let i = 0; i < responseJson.teams.length; i++) {
@@ -50,7 +47,6 @@ function displayTeamsInput(responseJson) {
 
 function displayTeamResults(responseJson) {
   //if there are previous results, remove them
-  console.log(responseJson);
   $("#teamId").empty();
   //iterate through the teams array
   for (let i = o; i < response.json.teams.length; i++) {
@@ -103,7 +99,6 @@ function tconvert(time) {
 
 function displayEventResults(responseJson) {
   //if there are previous results, remove them
-  console.log(responseJson);
   $("#results-list").empty();
 
   if (responseJson.events == null) {
@@ -114,8 +109,8 @@ function displayEventResults(responseJson) {
       //for each game in the events array, add a list item to the results list
       //with  the opponent, date of the event, and start time
       $("#results-list").append(
-        `<div class="card">
-      <div class="card-body"><h3>${responseJson.events[i].strEvent}</h3>
+        `<div class="card"
+         <div class="card-body"><h3>${responseJson.events[i].strEvent}</h3>
         <p>Date: ${responseJson.events[i].dateEvent}</p>
         <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
         </div>
@@ -150,7 +145,6 @@ function getGames(query) {
 function watchLeagueChange() {
   $("#allLeagues").on("change", function () {
     const selectedLeague = $(this).val();
-    console.log(selectedLeague);
     getTeams(selectedLeague);
   });
 }
@@ -158,7 +152,6 @@ function watchLeagueChange() {
 function watchTeamChange() {
   $("#selectedLeague, #allLeagues").on("change", function () {
     const idTeam = $(this).val();
-    console.log(idTeam);
     $("#teamId").val(idTeam);
   });
 }
@@ -167,17 +160,14 @@ function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
     const teamId = $("#selectedLeague").val();
-    console.log(teamId);
     // tconvert(time);
     getGames(teamId);
   });
 }
 
 $(function () {
-  console.log("App loaded! Waiting for submit!");
   watchForm();
   watchLeagueChange();
   watchTeamChange();
   getLeagues();
 });
-

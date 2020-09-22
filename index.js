@@ -109,7 +109,7 @@ function displayEventResults(responseJson) {
       //for each game in the events array, add a list item to the results list
       //with  the opponent, date of the event, and start time
       $("#results-list").append(
-        `<div class="card"
+        `<div class="card">
          <div class="card-body"><h3>${responseJson.events[i].strEvent}</h3>
         <p>Date: ${responseJson.events[i].dateEvent}</p>
         <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>

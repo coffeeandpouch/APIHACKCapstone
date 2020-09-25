@@ -4,6 +4,10 @@ const leagueUrl = "https://www.thesportsdb.com/api/v1/json/1/all_leagues.php";
 const allTeamsUrl =
   "https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php";
 const searchUrl = "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php";
+const apiKey = "AIzaSyCftPUQqZxBItKv-g-0HAOWNbMuT47BdMM";
+const mapUrl =
+  "https://maps.googleapis.com/maps/api/js?key=AIzaSyCftPUQqZxBItKv-g-0HAOWNbMuT47BdMM&callback=initMap";
+let map, geocoder;
 
 function displayLeaguesInput(responseJson) {
   // iterate through the leagues array
@@ -59,7 +63,6 @@ function displayTeamResults(responseJson) {
   $("#teamId").show();
 }
 
-$();
 //fetch the teams that are members of selected league
 function getTeams(leagueId) {
   fetch(`${allTeamsUrl}?${formatQueryParams({ id: leagueId })}`)
@@ -97,6 +100,48 @@ function tconvert(time) {
   return time.join(""); // return adjusted time or original string
 }
 
+// Initialize and add the map
+function initMap() {
+  // The location of the venue
+  // var venue = { lat: -25.344, lng: 131.036 };
+  // The map, centered on the venue
+  geocoder = new google.maps.Geocoder();
+  map = new google.maps.Map(document.getElementById("map"), {
+    zoom: 4,
+    // center: venue,
+  });
+
+  // SAMPLE CODE
+  // geocoder.geocode( { 'address': "Venu details go here"}, function(results, status) {
+  //   if (status == 'OK') {
+  //     map.setCenter(results[0].geometry.location);
+  //     var marker = new google.maps.Marker({
+  //         map: map,
+  //         position: results[0].geometry.location
+  //     });
+  //   } else {
+  //     alert('Geocode was not successful for the following reason: ' + status);
+  //   }
+  // });
+  // The marker, positioned at Uluru
+  // var marker = new google.maps.Marker({ position: coords, map: map });
+}
+
+function getVenue() {
+  fetch(`mapUrl`)
+    .then((response) => {
+      if (response.ok) {
+        console.log(response);
+        return response.json();
+      }
+      throw new Error(response.statusText);
+    })
+    .then((responseJson) => displayMapsInput(repsonseJson))
+    .catch((err) => {
+      $("#map").text(`Something went wrong: ${err.message}`);
+    });
+}
+
 function displayEventResults(responseJson) {
   //if there are previous results, remove them
   $("#results-list").empty();
@@ -113,10 +158,31 @@ function displayEventResults(responseJson) {
          <div class="card-body"><h3>${responseJson.events[i].strEvent}</h3>
         <p>Date: ${responseJson.events[i].dateEvent}</p>
         <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
+        <p> Event venue: ${responseJson.events[i].strVenue}</p>
         </div>
         </div>`
       );
+      // add marker to the map
+
+      geocoder.geocode({ address: responseJson.events[i].strVenue }, function (
+        results,
+        status
+      ) {
+        if (status == "OK") {
+          map.setCenter(results[0].geometry.location);
+          var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+          });
+        } else {
+          alert(
+            "Geocode was not successful for the following reason: " + status
+          );
+        }
+      });
     }
+    // display the map
+    $("#map").show();
   }
   //display the results section
   $("#results").removeClass("hidden");
@@ -162,6 +228,7 @@ function watchForm() {
     const teamId = $("#selectedLeague").val();
     // tconvert(time);
     getGames(teamId);
+    initMap();
   });
 }
 

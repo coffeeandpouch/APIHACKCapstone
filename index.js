@@ -160,20 +160,19 @@ function displayEventResults(responseJson) {
             "Geocode was not successful for the following reason: " + status
           );
         }
-        var infoWindow = new google.maps.InfoWindow({
-          content: `<h3>${responseJson.events[i].strEvent}</h3>
-          <p>Date: ${responseJson.events[i].dateEvent}</p>
-          <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
-          <p> Event venue: ${responseJson.events[i].strVenue}</p>`,
-        });
-  
-        marker.addListener("click", function () {
-          infoWindow.open(map, marker);
-        });
-      }
       });
 
-      
+      var infoWindow = new google.maps.InfoWindow({
+        content: `<h3>${responseJson.events[i].strEvent}</h3>
+        <p>Date: ${responseJson.events[i].dateEvent}</p>
+        <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
+        <p> Event venue: ${responseJson.events[i].strVenue}</p>`,
+      });
+
+      marker.addListener("click", function () {
+        infoWindow.open(map, marker);
+      });
+    }
     // display the map
     $("#map").show();
   }

@@ -102,29 +102,11 @@ function tconvert(time) {
 
 // Initialize and add the map
 function initMap() {
-  // The location of the venue
-  // var venue = { lat: -25.344, lng: 131.036 };
   // The map, centered on the venue
   geocoder = new google.maps.Geocoder();
   map = new google.maps.Map(document.getElementById("map"), {
     zoom: 4,
-    // center: venue,
   });
-
-  // SAMPLE CODE
-  // geocoder.geocode( { 'address': "Venu details go here"}, function(results, status) {
-  //   if (status == 'OK') {
-  //     map.setCenter(results[0].geometry.location);
-  //     var marker = new google.maps.Marker({
-  //         map: map,
-  //         position: results[0].geometry.location
-  //     });
-  //   } else {
-  //     alert('Geocode was not successful for the following reason: ' + status);
-  //   }
-  // });
-  // The marker, positioned at Uluru
-  // var marker = new google.maps.Marker({ position: coords, map: map });
 }
 
 function getVenue() {
@@ -151,8 +133,8 @@ function displayEventResults(responseJson) {
   } else {
     //iterate through the events array
     for (let i = 0; i < responseJson.events.length; i++) {
-      //for each game in the events array, add a list item to the results list
-      //with  the opponent, date of the event, and start time
+      //for each game in the events array, add list item to the card
+      //with  the opponent, date of the event,start time, and the venue
       $("#results-list").append(
         `<div class="card">
          <div class="card-body"><h3>${responseJson.events[i].strEvent}</h3>
@@ -163,7 +145,6 @@ function displayEventResults(responseJson) {
         </div>`
       );
       // add marker to the map
-
       geocoder.geocode({ address: responseJson.events[i].strVenue }, function (
         results,
         status
@@ -179,8 +160,20 @@ function displayEventResults(responseJson) {
             "Geocode was not successful for the following reason: " + status
           );
         }
+        var infoWindow = new google.maps.InfoWindow({
+          content: `<h3>${responseJson.events[i].strEvent}</h3>
+          <p>Date: ${responseJson.events[i].dateEvent}</p>
+          <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
+          <p> Event venue: ${responseJson.events[i].strVenue}</p>`,
+        });
+  
+        marker.addListener("click", function () {
+          infoWindow.open(map, marker);
+        });
+      }
       });
-    }
+
+      
     // display the map
     $("#map").show();
   }

@@ -141,24 +141,26 @@ function displayEventResults(responseJson) {
          <div class="card-body"><h3>${responseJson.events[i].strEvent}</h3>
         <p>Date: ${responseJson.events[i].dateEvent}</p>
         <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
-        <p> Event venue: ${responseJson.events[i].strVenue}</p>
+        <p> Event venue: ${responseJson.events[i].strVenue || "TBD"}</p>
         </div>
         </div>`
       );
-      if (responseJson.events[i].strVenue in venueEvents) {
-        venueEvents[responseJson.events[i].strVenue].push(`<h3>${
-          responseJson.events[i].strEvent
-        }</h3>
+      if (responseJson.events[i].strVenue) {
+        if (responseJson.events[i].strVenue in venueEvents) {
+          venueEvents[responseJson.events[i].strVenue].push(`<h3>${
+            responseJson.events[i].strEvent
+          }</h3>
+            <p>Date: ${responseJson.events[i].dateEvent}</p>
+            <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
+            <p> Event venue: ${responseJson.events[i].strVenue}</p>`);
+        } else {
+          venueEvents[responseJson.events[i].strVenue] = [
+            `<h3>${responseJson.events[i].strEvent}</h3>
           <p>Date: ${responseJson.events[i].dateEvent}</p>
           <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
-          <p> Event venue: ${responseJson.events[i].strVenue}</p>`);
-      } else {
-        venueEvents[responseJson.events[i].strVenue] = [
-          `<h3>${responseJson.events[i].strEvent}</h3>
-        <p>Date: ${responseJson.events[i].dateEvent}</p>
-        <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
-        <p> Event venue: ${responseJson.events[i].strVenue}</p`,
-        ];
+          <p> Event venue: ${responseJson.events[i].strVenue}</p>`,
+          ];
+        }
       }
     }
     for (let [venue, value] of Object.entries(venueEvents)) {
@@ -230,8 +232,8 @@ function watchForm() {
     event.preventDefault();
     const teamId = $("#selectedLeague").val();
     // tconvert(time);
-    getGames(teamId);
     initMap();
+    getGames(teamId);
   });
 }
 

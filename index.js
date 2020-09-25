@@ -131,6 +131,7 @@ function displayEventResults(responseJson) {
   if (responseJson.events == null) {
     $("#results-list").html(`<p>There are no games scheduled</p>`);
   } else {
+    const venueEvents = {};
     //iterate through the events array
     for (let i = 0; i < responseJson.events.length; i++) {
       //for each game in the events array, add list item to the card
@@ -144,33 +145,43 @@ function displayEventResults(responseJson) {
         </div>
         </div>`
       );
+      if (responseJson.events[i].strVenue in venueEvents) {
+        venueEvents[responseJson.events[i].strVenue].push(`<h3>${
+          responseJson.events[i].strEvent
+        }</h3>
+          <p>Date: ${responseJson.events[i].dateEvent}</p>
+          <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
+          <p> Event venue: ${responseJson.events[i].strVenue}</p>`);
+      } else {
+        venueEvents[responseJson.events[i].strVenue] = [
+          `<h3>${responseJson.events[i].strEvent}</h3>
+        <p>Date: ${responseJson.events[i].dateEvent}</p>
+        <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
+        <p> Event venue: ${responseJson.events[i].strVenue}</p`,
+        ];
+      }
+    }
+    for (let [venue, value] of Object.entries(venueEvents)) {
       // add marker to the map
-      geocoder.geocode({ address: responseJson.events[i].strVenue }, function (
-        results,
-        status
-      ) {
+      geocoder.geocode({ address: venue }, function (results, status) {
         if (status == "OK") {
           map.setCenter(results[0].geometry.location);
           var marker = new google.maps.Marker({
             map: map,
             position: results[0].geometry.location,
           });
+          var infoWindow = new google.maps.InfoWindow({
+            content: value.join(""),
+          });
+
+          marker.addListener("click", function () {
+            infoWindow.open(map, marker);
+          });
         } else {
           alert(
             "Geocode was not successful for the following reason: " + status
           );
         }
-      });
-
-      var infoWindow = new google.maps.InfoWindow({
-        content: `<h3>${responseJson.events[i].strEvent}</h3>
-        <p>Date: ${responseJson.events[i].dateEvent}</p>
-        <p>Start Time: ${tconvert(responseJson.events[i].strTime)}</p>
-        <p> Event venue: ${responseJson.events[i].strVenue}</p>`,
-      });
-
-      marker.addListener("click", function () {
-        infoWindow.open(map, marker);
       });
     }
     // display the map

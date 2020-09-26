@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: #fff;
+  background-color: lightgrey;
   color: #333;
 }
 
@@ -57,7 +57,8 @@ form {
 
 .card-body {
   padding: 2px;
-  background-color: rgb(255, 127, 0);
+  background-color: #7777;
+  color: black;
 }
 @media only screen and (min-width: 300px) and (max-width: 575px) {
   form {
@@ -67,6 +68,10 @@ form {
 
   p {
     font-size: 16px;
+  }
+
+  #map {
+    border: 1.5px solid #3333;
   }
 }
 @media only screen and (min-width: 576px) and (max-width: 793px) {

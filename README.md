@@ -8,13 +8,13 @@ Landing page:
 ![Landing Page](docs/App%20Landing%20Page.png "App Landing Page")
 
 Search results
-![App with results](docs/App%20with%20Results%20Geocode.png "App with Results and Geocode")
+![App with results](docs/App%20with%20Results%20and%20Geocode.png "App with Results and Geocode")
 
 Search results without map
 ![App with results](docs/App%20without%20Geocode.png "App with Results and no map")
 
 Search no results
-![App with no results](docs/App%20without%20Results.png "App No Results")
+![App with no results](docs/App%20without%20results.png "App No Results")
 
 # What NextUpSports does
 

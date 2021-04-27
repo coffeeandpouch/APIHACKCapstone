@@ -1,8 +1,8 @@
 "use strict";
 
-const leagueUrl = "https://www.thesportsdb.com/api/v1/json/1/all_leagues.php";
+const leagueUrl = "https://www.thesportsdb.com/api/v1/json/40130162/all_leagues.php";
 const allTeamsUrl =
-  "https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php";
+  "https://www.thesportsdb.com/api/v1/json/40130162/lookup_all_teams.php";
 const searchUrl = "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php";
 const apiKey = "AIzaSyCftPUQqZxBItKv-g-0HAOWNbMuT47BdMM";
 const mapUrl =

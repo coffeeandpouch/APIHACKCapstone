@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="styles.css" />
+    <title>NextUpSports</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>NextUpSports</h1>
+      <p>
+        <strong
+          >The one stop shop to check out who your team is playing next</strong
+        >
+      </p>
+      <hr />
+      <form class="js-form">
+        <label for="allLeagues">League:</label>
+        <select id="allLeagues">
+          <option value="" disabled selected>Choose your league</option>
+        </select>
+        <br />
+        <label for="selectedLeague">Team:</label>
+        <select id="selectedLeague">
+          <option disabled selected value="">Choose your team</option>
+        </select>
+
+        <label for="teamId" hidden>Team ID:</label>
+
+        <input
+          id="teamId"
+          type="text"
+          disabled
+          placeholder="Select a team"
+          hidden
+        />
+
+        <input type="submit" value="Go!" />
+        <br />
+      </form>
+      <h2 class="cards">Search results</h2>
+
+      <section id="results" class="cards">
+        <!-- <h2>Search results</h2> -->
+        <p id="js-error-message" class="error-message"></p>
+        <div id="results-list"></div>
+        <div id="map" style="display: none"></div>
+      </section>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="index.js"></script>
+    <script
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCftPUQqZxBItKv-g-0HAOWNbMuT47BdMM&callback=initMap"
+    ></script>
+  </body>
+</html>

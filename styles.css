@@ -1,0 +1,126 @@
+* {
+  box-sizing: border-box;
+  font-family: sans-serif;
+  margin: 0;
+}
+
+body {
+  background-color: lightgrey;
+  color: #333;
+}
+
+h1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: lightblue;
+}
+
+p {
+  font-size: 16px;
+  background-color: lightblue;
+}
+
+h2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+
+#results-list {
+  display: column;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#map {
+  height: 400px;
+  width: 100%;
+}
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card {
+  border: 3px solid black;
+  border-radius: 10%;
+  box-shadow: 0 10px 15px 0 rgba(248, 242, 242, 0.2);
+}
+
+.card-body {
+  padding: 2px;
+  background-color: #7777;
+  color: black;
+}
+@media only screen and (min-width: 300px) and (max-width: 575px) {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  #map {
+    border: 1.5px solid #3333;
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 793px) {
+  form {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  p {
+    font-size: 18px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  #results-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+}
+@media only screen and (min-width: 794px) {
+  form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  p {
+    font-size: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  h2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  #results-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    margin-right: 20px;
+  }
+}
